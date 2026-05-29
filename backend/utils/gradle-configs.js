@@ -391,36 +391,9 @@ function getGradleProperties(version) {
   if (!config) return null;
 
   if (config.is_unobfuscated) {
-    return `# Fabric Properties
-minecraft_version=${config.minecraft_version}
-loader_version=${config.loader_version}
-fabric_version=${config.fabric_version}
-
-# Mod Properties
-mod_version=1.0.0
-maven_group=com.example
-archives_base_name=example-mod
-
-# Gradle
-org.gradle.jvmargs=-Xmx4G
-org.gradle.parallel=true
-`;
+    return "# Fabric Properties\nminecraft_version=" + config.minecraft_version + "\nloader_version=" + config.loader_version + "\nfabric_version=" + config.fabric_version + "\n\n# Mod Properties\nmod_version=1.0.0\nmaven_group=com.example\narchives_base_name=example-mod\n\n# Gradle\norg.gradle.jvmargs=-Xmx4G\norg.gradle.parallel=true\n";
   } else {
-    return `# Fabric Properties
-minecraft_version=${config.minecraft_version}
-yarn_mappings=${config.yarn_mappings}
-loader_version=${config.loader_version}
-fabric_version=${config.fabric_version}
-
-# Mod Properties
-mod_version=1.0.0
-maven_group=com.example
-archives_base_name=example-mod
-
-# Gradle
-org.gradle.jvmargs=-Xmx4G
-org.gradle.parallel=true
-`;
+    return "# Fabric Properties\nminecraft_version=" + config.minecraft_version + "\nyarn_mappings=" + config.yarn_mappings + "\nloader_version=" + config.loader_version + "\nfabric_version=" + config.fabric_version + "\n\n# Mod Properties\nmod_version=1.0.0\nmaven_group=com.example\narchives_base_name=example-mod\n\n# Gradle\norg.gradle.jvmargs=-Xmx4G\norg.gradle.parallel=true\n";
   }
 }
 
@@ -428,119 +401,17 @@ function getBuildGradle(version, modId, modName) {
   const config = FABRIC_VERSIONS[version];
   if (!config) return null;
 
-  const group = `com.${modId.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
-
+  const group = "com." + modId.toLowerCase().replace(/[^a-z0-9]/g, "");
+  
   if (config.is_unobfuscated) {
-    return `plugins {
-    id "${config.plugin_id}" version "${config.loom_version}"
-    id "maven-publish"
-}
-
-version = "1.0.0"
-group = "${group}"
-
-base {
-    archivesName = "${modId}"
-}
-
-repositories {
-    mavenCentral()
-    maven { url "https://maven.fabricmc.net/" }
-}
-
-dependencies {
-    minecraft "com.mojang:minecraft:\${project.minecraft_version}"
-    modImplementation "net.fabricmc:fabric-loader:\${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:\${project.fabric_version}"
-}
-
-processResources {
-    inputs.property "version", project.version
-    filteringCharset "UTF-8"
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-}
-
-def targetJavaVersion = ${config.java_version}
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    withSourcesJar()
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = targetJavaVersion
-}
-
-jar {
-    from("LICENSE") {
-        rename { "\${it}_\${project.archivesName}"}
-    }
-}
-`;
+    return "plugins {\n    id \"" + config.plugin_id + "\" version \"" + config.loom_version + "\"\n    id \"maven-publish\"\n}\n\nversion = \"1.0.0\"\ngroup = \"" + group + "\"\n\nbase {\n    archivesName = \"" + modId + "\"\n}\n\nrepositories {\n    mavenCentral()\n    maven { url \"https://maven.fabricmc.net/\" }\n}\n\ndependencies {\n    minecraft \"com.mojang:minecraft:${project.minecraft_version}\"\n    modImplementation \"net.fabricmc:fabric-loader:${project.loader_version}\"\n    modImplementation \"net.fabricmc.fabric-api:fabric-api:${project.fabric_version}\"\n}\n\nprocessResources {\n    inputs.property \"version\", project.version\n    filteringCharset \"UTF-8\"\n    filesMatching(\"fabric.mod.json\") {\n        expand \"version\": project.version\n    }\n}\n\ndef targetJavaVersion = " + config.java_version + "\njava {\n    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)\n    withSourcesJar()\n}\n\ntasks.withType(JavaCompile).configureEach {\n    it.options.release = targetJavaVersion\n}\n\njar {\n    from(\"LICENSE\") {\n        rename { \"${it}_${project.archivesName}\"}\n    }\n}\n";
   } else {
-    return `plugins {
-    id "${config.plugin_id}" version "${config.loom_version}"
-    id "maven-publish"
-}
-
-version = "1.0.0"
-group = "${group}"
-
-base {
-    archivesName = "${modId}"
-}
-
-repositories {
-    mavenCentral()
-    maven { url "https://maven.fabricmc.net/" }
-}
-
-dependencies {
-    minecraft "com.mojang:minecraft:\${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:\${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:\${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:\${project.fabric_version}"
-}
-
-processResources {
-    inputs.property "version", project.version
-    filteringCharset "UTF-8"
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-}
-
-def targetJavaVersion = ${config.java_version}
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    withSourcesJar()
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = targetJavaVersion
-}
-
-jar {
-    from("LICENSE") {
-        rename { "\${it}_\${project.archivesName}"}
-    }
-}
-`;
+    return "plugins {\n    id \"" + config.plugin_id + "\" version \"" + config.loom_version + "\"\n    id \"maven-publish\"\n}\n\nversion = \"1.0.0\"\ngroup = \"" + group + "\"\n\nbase {\n    archivesName = \"" + modId + "\"\n}\n\nrepositories {\n    mavenCentral()\n    maven { url \"https://maven.fabricmc.net/\" }\n}\n\ndependencies {\n    minecraft \"com.mojang:minecraft:${project.minecraft_version}\"\n    mappings \"net.fabricmc:yarn:${project.yarn_mappings}:v2\"\n    modImplementation \"net.fabricmc:fabric-loader:${project.loader_version}\"\n    modImplementation \"net.fabricmc.fabric-api:fabric-api:${project.fabric_version}\"\n}\n\nprocessResources {\n    inputs.property \"version\", project.version\n    filteringCharset \"UTF-8\"\n    filesMatching(\"fabric.mod.json\") {\n        expand \"version\": project.version\n    }\n}\n\ndef targetJavaVersion = " + config.java_version + "\njava {\n    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)\n    withSourcesJar()\n}\n\ntasks.withType(JavaCompile).configureEach {\n    it.options.release = targetJavaVersion\n}\n\njar {\n    from(\"LICENSE\") {\n        rename { \"${it}_${project.archivesName}\"}\n    }\n}\n";
   }
 }
 
 function getSettingsGradle() {
-  return `rootProject.name = 'mod-project'
-
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url "https://maven.fabricmc.net/" }
-    }
-}
-`;
+  return "rootProject.name = 'mod-project'\n\npluginManagement {\n    repositories {\n        mavenCentral()\n        gradlePluginPortal()\n        maven { url \"https://maven.fabricmc.net/\" }\n    }\n}\n";
 }
 
 function getJavaVersion(version) {
@@ -556,27 +427,31 @@ function getGradleVersion(version) {
 function getFabricModJson(version, modId, modName, description, entrypoint) {
   const config = FABRIC_VERSIONS[version];
   const schemaVersion = 1;
-
+  const cleanModId = modId.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const className = modName ? modName.replace(/[^a-zA-Z0-9]/g, "") : "ExampleMod";
+  const javaVer = getJavaVersion(version) || "17";
+  const modVersion = "1.0.0";
+  
   return JSON.stringify({
     schemaVersion: schemaVersion,
-    id: modId.toLowerCase().replace(/[^a-z0-9]/g, ""),
-    version: "${version}",
+    id: cleanModId,
+    version: modVersion,
     name: modName || modId,
     description: description || "A Fabric mod generated by AI",
     authors: ["AI Mod Generator"],
     contact: {},
     license: "MIT",
-    icon: "assets/${modId.toLowerCase().replace(/[^a-z0-9]/g, "")}/icon.png",
+    icon: "assets/" + cleanModId + "/icon.png",
     environment: "*",
     entrypoints: {
       main: [
-        entrypoint || `${modId.toLowerCase().replace(/[^a-z0-9]/g, "")}.${modId}Mod`
+        entrypoint || (cleanModId + "." + className + "Mod")
       ]
     },
     depends: {
       fabricloader: ">=0.14.0",
-      minecraft: `~${version}`,
-      java: ">= " + (getJavaVersion(version) || "17")
+      minecraft: "~" + version,
+      java: ">= " + javaVer
     }
   }, null, 2);
 }
@@ -585,7 +460,7 @@ function getMixinConfig(modId) {
   return JSON.stringify({
     required: true,
     minVersion: "0.8",
-    package: `com.${modId.toLowerCase().replace(/[^a-z0-9]/g, "")}.mixin`,
+    package: "com." + modId.toLowerCase().replace(/[^a-z0-9]/g, "") + ".mixin",
     compatibilityLevel: "JAVA_17",
     mixins: [],
     client: [],
@@ -605,3 +480,4 @@ module.exports = {
   getFabricModJson,
   getMixinConfig
 };
+    
