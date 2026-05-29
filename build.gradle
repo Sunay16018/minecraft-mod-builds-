@@ -1,0 +1,42 @@
+plugins {
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'maven-publish'
+}
+
+group = project.group
+version = project.version
+archivesBaseName = project.archivesBaseName
+
+repositories {
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/" }
+}
+
+dependencies {
+    // Minecraft
+    minecraft "com.mojang:minecraft:1.21.8"
+
+    // Yarn mappings
+    mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
+
+    // Fabric Loader
+    modImplementation "net.fabricmc:fabric-loader:0.15.11"
+
+    // Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.8"
+}
+
+loom {
+    // Use the official Fabric Loom configuration
+    accessWidenerPath = file("src/main/resources/kurt.accesswidener")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
