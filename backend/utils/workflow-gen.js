@@ -3,13 +3,11 @@
  * Fabric mod derleme icin dinamik workflow olusturucu
  */
 
-const { getJavaVersion, getGradleVersion } = require('./gradle-configs');
+const { getJavaVersion } = require('./gradle-configs');
 
 function generateWorkflow(version, branchName) {
   const javaVersion = getJavaVersion(version) || "21";
-  const gradleVersion = getGradleVersion(version) || "8.12";
-
-  // Java versiyonunu GitHub Actions formatina cevir
+  
   let setupJavaVersion;
   if (javaVersion === "8") setupJavaVersion = "8";
   else if (javaVersion === "16") setupJavaVersion = "16";
@@ -52,14 +50,6 @@ jobs:
         with:
           java-version: '${setupJavaVersion}'
           distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: ${gradleVersion}
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v3
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
