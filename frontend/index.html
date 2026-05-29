@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Mod Creator | AI-Powered</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Yildizlar arka plan -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- Ust baslik -->
+        <header class="header">
+            <h1 class="title">MINECRAFT MOD CREATOR</h1>
+            <p class="subtitle">AI-Powered Multi-Version Fabric Mod Generator</p>
+            <div class="neon-line"></div>
+        </header>
+
+        <!-- Ana icerik -->
+        <div class="main-content">
+            <!-- Sol panel - Ayarlar -->
+            <aside class="settings-panel">
+                <h2 class="panel-title">⚙️ Ayarlar</h2>
+
+                <!-- Minecraft Surumu -->
+                <div class="form-group">
+                    <label for="mc-version">🎮 Minecraft Surumu</label>
+                    <select id="mc-version" class="neon-select">
+                        <option value="" disabled selected>Surum secin...</option>
+                    </select>
+                </div>
+
+                <!-- Modloader -->
+                <div class="form-group">
+                    <label for="modloader">🔧 Modloader</label>
+                    <select id="modloader" class="neon-select">
+                        <option value="Fabric" selected>Fabric</option>
+                    </select>
+                    <small class="hint">Su an sadece Fabric destekleniyor</small>
+                </div>
+
+                <!-- Mod Turu -->
+                <div class="form-group">
+                    <label>📦 Mod Turu (Birden fazla secilebilir)</label>
+                    <div class="checkbox-grid" id="mod-types">
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yeni Bloklar">
+                            <span>Yeni Bloklar</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yeni Eşyalar">
+                            <span>Yeni Eşyalar</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yeni Yaratıklar (Mob)">
+                            <span>Yeni Yaratıklar</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yeni Boyut">
+                            <span>Yeni Boyut</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yeni Biyom">
+                            <span>Yeni Biyom</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Büyüler">
+                            <span>Büyüler</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Kalkanlar/Zırhlar">
+                            <span>Kalkanlar/Zırhlar</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Silahlar/Aletler">
+                            <span>Silahlar/Aletler</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yiyecekler/İksirler">
+                            <span>Yiyecekler/İksirler</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Dekorasyon/Mobilya">
+                            <span>Dekorasyon</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Teknik/Otomotik Redstone">
+                            <span>Redstone/Teknik</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Büyü Sistemi">
+                            <span>Büyü Sistemi</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Görev Sistemi">
+                            <span>Görev Sistemi</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Ticaret Sistemi">
+                            <span>Ticaret Sistemi</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Boss Savaşı">
+                            <span>Boss Savaşı</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Yeni Yapılar (Dungeon vb.)">
+                            <span>Yeni Yapılar</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Araçlar (Araba, Uçak vb.)">
+                            <span>Araçlar</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Enerji Sistemi (FE/RF)">
+                            <span>Enerji Sistemi</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Boru/Taşıma Sistemi">
+                            <span>Boru Sistemi</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Depolama Sistemi">
+                            <span>Depolama</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Minimap/Harita">
+                            <span>Minimap</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="HUD/UI Eklentisi">
+                            <span>HUD/UI</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="Performans Optimizasyonu">
+                            <span>Performans</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="QoL (Yaşam Kalitesi)">
+                            <span>QoL</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Ozellikler -->
+                <div class="form-group">
+                    <label>✨ Eklenen Ozellikler</label>
+                    <div id="features-list">
+                        <div class="feature-input">
+                            <input type="text" class="neon-input feature-field" placeholder="Orn: Ucan kilic">
+                            <button class="btn-remove" onclick="removeFeature(this)">🗑️</button>
+                        </div>
+                    </div>
+                    <button class="btn-add-feature" onclick="addFeature()">+ Ozellik Ekle</button>
+                </div>
+
+                <!-- Mod Adi -->
+                <div class="form-group">
+                    <label for="mod-name">🏷️ Mod Adi (Opsiyonel)</label>
+                    <input type="text" id="mod-name" class="neon-input" placeholder="Bos birakirsan AI belirler">
+                </div>
+
+                <!-- Mod Aciklamasi -->
+                <div class="form-group">
+                    <label for="mod-desc">📝 Mod Aciklamasi (Opsiyonel)</label>
+                    <textarea id="mod-desc" class="neon-textarea" rows="3" placeholder="Modunuzun ne yaptigini kisaca aciklayin..."></textarea>
+                </div>
+            </aside>
+
+            <!-- Sag panel - Prompt ve Sonuc -->
+            <main class="result-panel">
+                <h2 class="panel-title">🚀 Mod Olustur</h2>
+
+                <!-- Prompt input -->
+                <div class="form-group">
+                    <label for="prompt">💭 Ekstra Istedikleriniz (Opsiyonel)</label>
+                    <textarea id="prompt" class="neon-textarea prompt-area" rows="4" placeholder="Modunuzda ekstra ne olsun istiyorsunuz? Ornegin: 'Gok mavisi renkte parlak bir kılıç olsun, ışınlanma özelliği olsun, crafting tarifi basit olsun...'"></textarea>
+                </div>
+
+                <!-- Uret butonu -->
+                <button class="btn-generate" id="btn-generate" onclick="generateMod()">
+                    <span class="btn-text">MOD URET 🚀</span>
+                    <span class="btn-glow"></span>
+                </button>
+
+                <!-- Konsol ciktisi -->
+                <div class="console-container">
+                    <div class="console-header">
+                        <span class="console-title">🖥️ Konsol</span>
+                        <button class="btn-clear" onclick="clearConsole()">Temizle</button>
+                    </div>
+                    <div class="console-output" id="console-output">
+                        <div class="console-line info">🌌 Minecraft Mod Creator hazir...</div>
+                        <div class="console-line info">⚙️ Ayarlari yapip 'MOD URET' butonuna basin.</div>
+                    </div>
+                </div>
+
+                <!-- Sonuc alani -->
+                <div class="result-area" id="result-area" style="display: none;">
+                    <div class="result-card">
+                        <h3>📦 Mod Bilgileri</h3>
+                        <div class="result-info">
+                            <p><strong>✅ Mod Adi:</strong> <span id="result-mod-name">-</span></p>
+                            <p><strong>🎮 Minecraft:</strong> <span id="result-version">-</span></p>
+                            <p><strong>🔧 Modloader:</strong> <span id="result-loader">-</span></p>
+                            <p><strong>📁 Branch:</strong> <span id="result-branch">-</span></p>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn-check-status" id="btn-check" onclick="checkStatus()" style="display: none;">
+                                🔄 Durum Kontrol Et
+                            </button>
+                            <a class="btn-download" id="btn-download" href="#" target="_blank" style="display: none;">
+                                📥 MOD JAR INDIR
+                            </a>
+                            <a class="btn-workflow" id="btn-workflow" href="#" target="_blank" style="display: none;">
+                                🔗 GitHub Actions Goruntule
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with 💜 by AI | Minecraft Mod Creator v1.0</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
