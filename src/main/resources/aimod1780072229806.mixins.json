@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.aimod1780072229806.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": []
+}
